@@ -1,18 +1,28 @@
 //list of cards
 const cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
-//list of shuffled cards
-const cardsShuffled = shuffle(cardList);
-//select list items with card class
-const classItems = document.body.querySelectorAll('.card');
-//iterate through shuffled cards and set to innerhtml of each card class element
 
-//TODO increase performance by creating li as new elements, setting their class,
-// then updating innerhtml of the deck. Also make as function so it can be called for reset game
-// NEED to make sure if same card is clicked twice it doesn't respond!!
-let index = 0;
-for (let card of cardsShuffled) {
-  classItems[index].innerHTML = '<i class="fa ' + card + '"></i>';
-  index++;
+//add event listener to restart game button
+const restart = document.body.querySelector('.restart');
+restart.addEventListener('click', restartGame);
+
+startGame();
+
+//function run when page is opened to set up game
+function startGame() {
+  //list of shuffled cards
+  const cardsShuffled = shuffle(cardList);
+  //select list items with card class
+  const classItems = document.body.querySelectorAll('.card');
+  //iterate through shuffled cards and set to innerhtml of each card class element
+  let index = 0;
+  for (let card of cardsShuffled) {
+    classItems[index].className = 'card';
+    classItems[index].innerHTML = '<i class="fa ' + card + '"></i>';
+    index++;
+  }
+  //add event listener to the card deck
+  const cardDeck = document.body.querySelector('.deck');
+  cardDeck.addEventListener('click', cardClicked);
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -30,12 +40,6 @@ function shuffle(array) {
     return array;
 }
 
-const restart = document.body.querySelector('.restart');
-restart.addEventListener('click', restartGame);
-
-const cardDeck = document.body.querySelector('.deck');
-cardDeck.addEventListener('click', cardClicked);
-
 function cardClicked(event) {
   if (event.target.nodeName === 'LI' && waiting === false){
     displayCard(event);
@@ -48,6 +52,7 @@ function displayCard(event) {
 }
 
 let openList = [];
+
 //variable to see if setTimout is in process on the card compariso to prevent more cards being opened
 let waiting = false;
 
@@ -108,10 +113,16 @@ function didIWin() {
 }
 
 function restartGame() {
-  alert('this');
-}
-/*
+  openList = [];
+  waiting = false;
+  wonGameCount = 0;
+  moves = -1;
+  moveCounter();
+  startGame();
 
+}
+
+/*
  * done- set up the event listener for a card. If a card is clicked:
  * done- display the card's symbol (put this functionality in another function that you call from this one)
  * done- add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
@@ -119,6 +130,9 @@ function restartGame() {
  * done- if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  * done- if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  * done- increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- * maybe+ if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-
+ * make better- flashier message with option to restart right away if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ * -increase performance by creating li as new elements, setting their class, then updating innerhtml of the deck. Also make as function so it can be called for reset game
+ * -change style of site
+ * - change icons?
+ * -additional features?
  */
