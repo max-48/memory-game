@@ -86,15 +86,17 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
     margin-bottom: 10px;
 }
 
 .score-panel .stars {
+    text-align: right;
+    width: 16%;
     margin: 0;
     padding: 0;
-    display: inline-block;
     margin: 0 5px 0 0;
 }
 
@@ -103,7 +105,21 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .move-chart {
+    text-align: left;
+    width: 17%;
+
+}
+
 .score-panel .restart {
-    float: right;
+    text-align: center;
+    width: 33%;
     cursor: pointer;
+}
+
+.score-panel .timer-chart {
+    text-align: center;
+    width: 33%;
+    /* display: inline-block; */
+
 }
