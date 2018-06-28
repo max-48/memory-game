@@ -132,7 +132,7 @@ function moveCounter() {
 function didIWin() {
   if (wonGameCount === 8){
     clearInterval(myTimer);
-    
+
   }
 }
 
@@ -181,7 +181,7 @@ function restartGame() {
  * done- if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  * done- increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  * - modal message: congratulate player and ask if play again, display timer and star rating
- * - stop timer when game is won
+ * - page conforms to different screen size (mobile)
  * - remove stars from game after certain number of moves
  * - write README file detailing the game and all dependencies
  * - comments explain all longer code procedures
