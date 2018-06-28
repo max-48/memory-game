@@ -23,21 +23,24 @@ function startGame() {
   //add event listener to the card deck
   const cardDeck = document.body.querySelector('.deck');
   cardDeck.addEventListener('click', cardClicked);
+  const starPanel = document.body.querySelector('.stars');
+
+  //add 3 stars to score panel
+  starPanel.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
+  while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
+  return array;
 }
 
 // listener function for card deck being clicked. Checks to make sure an actual
@@ -122,10 +125,19 @@ function closeCards() {
 //move counter variable
 let moves = 0;
 
-//adds 1 to move counter every time a new card click occurs
+//adds 1 to move counter every time a new card click occurs, and removes
+//stars from score panel after certain # of moves
 function moveCounter() {
   moves++;
   document.body.querySelector('.moves').textContent = moves;
+  if (moves === 13) {
+    const stars = document.body.querySelector('.stars').children[0];
+    stars.remove();
+  }
+  else if (moves === 21) {
+    const stars = document.body.querySelector('.stars').children[0];
+    stars.remove();
+  }
 }
 
 //checks to see if all cards have been matched
