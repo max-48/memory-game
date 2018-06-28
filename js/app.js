@@ -130,8 +130,10 @@ function moveCounter() {
 
 //checks to see if all cards have been matched
 function didIWin() {
-  if (wonGameCount === 8)
-  alert("You won the game!");
+  if (wonGameCount === 8){
+    clearInterval(myTimer);
+    
+  }
 }
 
 //game timer variable
@@ -178,7 +180,12 @@ function restartGame() {
  * done- if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  * done- if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  * done- increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- * make better- flashier message with option to restart right away if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ * - modal message: congratulate player and ask if play again, display timer and star rating
+ * - stop timer when game is won
+ * - remove stars from game after certain number of moves
+ * - write README file detailing the game and all dependencies
+ * - comments explain all longer code procedures
+ * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched
  * -increase performance by creating li as new elements, setting their class, then updating innerhtml of the deck. Also make as function so it can be called for reset game
  * -change style of site
  * - change icons?
