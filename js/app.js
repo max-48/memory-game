@@ -23,10 +23,10 @@ function startGame() {
   //add event listener to the card deck
   const cardDeck = document.body.querySelector('.deck');
   cardDeck.addEventListener('click', cardClicked);
-  const starPanel = document.body.querySelector('.stars');
 
   //add 3 stars to score panel
-  starPanel.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+  const starPanel = document.body.querySelector('.stars');
+  starPanel.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -65,8 +65,8 @@ function displayCard(event) {
 //variable to see if setTimout is in process on the card comparison to prevent more cards being opened
 let waiting = false;
 
+//array variable for cards that have been "opened"
 let openList = [];
-
 
 //Add click target to open card list. Checks to see if two cards have been added to open card list. If two cards,
 //make sure they are not the same target card (remove a card on list if same target),
@@ -125,11 +125,19 @@ function closeCards() {
 //move counter variable
 let moves = 0;
 
-//adds 1 to move counter every time a new card click occurs, and removes
+//adds 1 to move counter every time 2 cards have been clicked, and removes
 //stars from score panel after certain # of moves
 function moveCounter() {
   moves++;
   document.body.querySelector('.moves').textContent = moves;
+  //testing code to be deleted
+  if (moves === 1) {
+    modal.style.display = "block";
+    document.body.querySelector('.modal-moves').textContent = moves;
+    document.body.querySelector('.modal-time').textContent = gameTimer;
+    const currentStars = document.body.querySelector('.stars').innerHTML;
+    document.body.querySelector('.modal-stars').innerHTML = currentStars;
+  }
   if (moves === 13) {
     const stars = document.body.querySelector('.stars').children[0];
     stars.remove();
@@ -140,18 +148,10 @@ function moveCounter() {
   }
 }
 
-//checks to see if all cards have been matched
-function didIWin() {
-  if (wonGameCount === 8){
-    clearInterval(myTimer);
-
-  }
-}
-
 //game timer variable
 let gameTimer = 0;
 
-//function invoked to add a second to game timer
+//function invoked by interval to add a second to game timer
 function addToTimer() {
   gameTimer++;
   document.body.querySelector('.timer').textContent = gameTimer;
@@ -168,7 +168,41 @@ function startTimer() {
   firstClick = false;
 }
 
-//when restart game icon is clicked, all variable are reset, timer restarted,
+//declaring modal variable
+const modal = document.body.querySelector('.modal');
+
+//start new game link when modal is displayed
+const modalRestart = document.body.querySelector('.game-restart');
+modalRestart.addEventListener('click', restartGame);
+
+//functionality for close button in modal
+const modalClose = document.body.querySelector('.modal-close');
+modalClose.addEventListener('click', function() {
+  modal.style.display = "none";
+});
+
+//functionality to close modal if background window clicked
+window.addEventListener = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+//determines if game is won by checking to see if all cards are matched
+function didIWin() {
+  if (wonGameCount === 8){
+    //display modal and results of game (stars, moves, timer)
+    modal.style.display = "block";
+    document.body.querySelector('.modal-moves').textContent = moves;
+    document.body.querySelector('.modal-time').textContent = gameTimer;
+    const currentStars = document.body.querySelector('.stars').innerHTML;
+    document.body.querySelector('.modal-stars').innerHTML = currentStars;
+    //stop game timer
+    clearInterval(myTimer);
+  }
+}
+
+//when restart game icon is clicked (or link in modal), all variable are reset, timer restarted,
 //and start game function invoked
 function restartGame() {
   openList = [];
@@ -180,9 +214,11 @@ function restartGame() {
   clearInterval(myTimer);
   moves = -1;
   moveCounter();
+  modal.style.display = "none";
   startGame();
 
 }
+
 
 /*
  * done- set up the event listener for a card. If a card is clicked:
@@ -192,9 +228,10 @@ function restartGame() {
  * done- if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  * done- if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  * done- increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ * - reclicking matched cards closes them?
  * - modal message: congratulate player and ask if play again, display timer and star rating
  * - page conforms to different screen size (mobile)
- * - remove stars from game after certain number of moves
+ * done- remove stars from game after certain number of moves
  * - write README file detailing the game and all dependencies
  * - comments explain all longer code procedures
  * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched

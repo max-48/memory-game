@@ -17,9 +17,9 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
+        	<div class="stars">
             <!-- html written in by javascript on startGame or restartGame -->
-        	</ul>
+        	</div>
 
         	<div class="move-chart">
             <span class="moves">0</span> Moves
@@ -85,6 +85,21 @@
             </li>
         </ul>
     </div>
+
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <i class="modal-close fa fa-close"></i>
+          <h2>Congratulations, you won!</h2>
+          <p><span class="modal-stars"></span></p>
+        </div>
+        <div class="modal-body">
+          <p>You won in <span class="modal-moves"></span> moves and it took <span class="modal-time"></span> seconds</p>
+          <p><span class="game-restart">Click here to start a new game</span></p>
+        </div>
+      </div>
+    </div>
+
 
     <script src="js/app.js"></script>
 </body>
