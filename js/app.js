@@ -44,16 +44,21 @@ function shuffle(array) {
 }
 
 // listener function for card deck being clicked. Checks to make sure an actual
-// card was the click target and that the click timeout for card comparison isn't running. Also
-// starts game timer if it is the first card click of the game, invokes function
-// to display the clicked card, and invokes function to begin card comparison process (addToList)
+// card was the click target and that the click timeout for card comparison isn't running
 function cardClicked(event) {
   if (event.target.nodeName === 'LI' && waiting === false){
+    //starts game timer if it is the first card click of the game
     if (firstClick === true){
       startTimer();
     }
-    displayCard(event);
-    addToList(event);
+    //checks to see if target card has already been "matched", therefore saving "matched"
+    //cards from being reclassified
+    if (event.target.className.includes('match') === false) {
+      //display the clicked card
+      displayCard(event);
+      //begin card comparison process
+      addToList(event);
+    }
   }
 }
 
@@ -131,13 +136,13 @@ function moveCounter() {
   moves++;
   document.body.querySelector('.moves').textContent = moves;
   //testing code to be deleted
-  if (moves === 1) {
-    modal.style.display = "block";
-    document.body.querySelector('.modal-moves').textContent = moves;
-    document.body.querySelector('.modal-time').textContent = gameTimer;
-    const currentStars = document.body.querySelector('.stars').innerHTML;
-    document.body.querySelector('.modal-stars').innerHTML = currentStars;
-  }
+  // if (moves === 1) {
+  //   modal.style.display = "block";
+  //   document.body.querySelector('.modal-moves').textContent = moves;
+  //   document.body.querySelector('.modal-time').textContent = gameTimer;
+  //   const currentStars = document.body.querySelector('.stars').innerHTML;
+  //   document.body.querySelector('.modal-stars').innerHTML = currentStars;
+  // }
   if (moves === 13) {
     const stars = document.body.querySelector('.stars').children[0];
     stars.remove();
@@ -221,17 +226,7 @@ function restartGame() {
 
 
 /*
- * done- set up the event listener for a card. If a card is clicked:
- * done- display the card's symbol (put this functionality in another function that you call from this one)
- * done- add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- * done- if the list already has another card, check to see if the two cards match
- * done- if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- * done- if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- * done- increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- * - reclicking matched cards closes them?
- * - modal message: congratulate player and ask if play again, display timer and star rating
  * - page conforms to different screen size (mobile)
- * done- remove stars from game after certain number of moves
  * - write README file detailing the game and all dependencies
  * - comments explain all longer code procedures
  * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched
