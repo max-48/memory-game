@@ -1,12 +1,6 @@
 //list of cards
 const cardList = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
 
-//add event listener to restart game button
-const restart = document.body.querySelector('.restart');
-restart.addEventListener('click', restartGame);
-
-startGame();
-
 //function run when page is opened to set up game
 function startGame() {
   //pass cardList to shuffle function and return list of shuffled cards
@@ -42,6 +36,8 @@ function shuffle(array) {
   }
   return array;
 }
+
+startGame();
 
 // listener function for card deck being clicked. Checks to make sure an actual
 // card was the click target and that the click timeout for card comparison isn't running
@@ -206,6 +202,10 @@ function didIWin() {
     clearInterval(myTimer);
   }
 }
+
+//add event listener to restart game button
+const restart = document.body.querySelector('.restart');
+restart.addEventListener('click', restartGame);
 
 //when restart game icon is clicked (or link in modal), all variable are reset, timer restarted,
 //and start game function invoked
