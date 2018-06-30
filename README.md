@@ -1,20 +1,13 @@
-# Memory Game Project
+# Simple Card Memory Game
 
-## Table of Contents
+This browser-based card matching game (also called Concentration) is a practice project for Udacity's Front-End Web Developer course.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+##Usage
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+To play the game, begin by clicking on any card. The goal is to match the card symbol with the identical symbol on another card. There is only one pair for each symbol. A star rating is given based on the number of moves to win the game (1 move = two card flips). The game can be restarted at any time by clicking the restart icon on the score panel.
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This project is purely for practice purposes; therefore, contributions are not accepted at this time.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).

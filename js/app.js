@@ -226,11 +226,8 @@ function restartGame() {
 
 
 /*
- * - page conforms to different screen size (mobile)
  * - write README file detailing the game and all dependencies
- * - comments explain all longer code procedures
  * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched
- * -increase performance by creating li as new elements, setting their class, then updating innerhtml of the deck. Also make as function so it can be called for reset game
  * -change style of site
  * - change icons?
  * -additional features?
