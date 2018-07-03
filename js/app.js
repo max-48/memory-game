@@ -237,12 +237,3 @@ function restartGame() {
   startGame();
 
 }
-
-
-/*
-
- * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched
- * -change style of site
- * - change icons?
- * -additional features?
- */
