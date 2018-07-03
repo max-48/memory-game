@@ -12,6 +12,8 @@ function startGame() {
   for (let card of cardsShuffled) {
     classItems[index].className = 'card';
     classItems[index].innerHTML = '<i class="fa ' + card + '"></i>';
+    //reset animation if game was restarted
+    classItems[index].style.animation = 'none 0s ease 0s 1 normal none running';
     index++;
   }
   //add event listener to the card deck
@@ -58,8 +60,9 @@ function cardClicked(event) {
   }
 }
 
-//changes class of clicked card to make it "open" and display symbol
+//clicked cards is animated and changes class to make it "open" and display symbol
 function displayCard(event) {
+  event.target.style.animation = 'moveopen 0.25s ease 0s 1 normal forwards running';
   event.target.className = 'card open show';
 }
 
@@ -70,14 +73,16 @@ let waiting = false;
 let openList = [];
 
 //Add click target to open card list. Checks to see if two cards have been added to open card list. If two cards,
-//make sure they are not the same target card (remove a card on list if same target),
-//invoke card comparison function, and add a move to the move counter
+//make sure they are not the same target card (remove a card on list if same target)
 function addToList(event) {
   openList.push(event.target);
   if (openList.length === 2) {
     if (openList[0] !== openList[1]) {
-      cardCompare();
+      //insure clicks don't invoke functions during animation and card comparison
+      waiting = true;
       moveCounter();
+      //wait for card rotate animation then begin card comparison
+      setTimeout(cardCompare, 250);
     }
     else {
       openList.splice(0, 1);
@@ -85,41 +90,58 @@ function addToList(event) {
   }
 }
 
-//Compares the two cards on the openList to see if they have same class name.
-//If identical, keep them open, if not, prevent other cards from being clicked (waiting=true)
-//and set timer to close cards after brief period
+//Compares the two cards on the openList to see if they have same class name (icon type).
+//If identical, invoke function to keep them open
 function cardCompare() {
   let card1 = openList[0].firstChild.className;
   let card2 = openList[1].firstChild.className;
   if (card1 === card2) {
     keepCardsOpen();
   } else {
-    waiting = true;
-    setTimeout(closeCards, 1200);
+    //add class to turn red for incorrect match
+    openList[0].classList.add('wrong');
+    openList[1].classList.add('wrong');
+    //wrong choice animation
+    openList[0].style.animation = 'movewrong 0.5s ease 0s 1 normal none running';
+    openList[1].style.animation = 'movewrong 0.5s ease 0s 1 normal none running';
+    //wait 1second to view/memorize open cards before closing
+    setTimeout(closeCards, 1000);
   }
 }
 
 //card match counter. Indicates game is won when reaching "8"
 let wonGameCount = 0;
 
-//change class of "open" cards when matched, add one to match counter,
-//invoke function to see if all matches have been made, remove open cards from list
+//change class of matched cards to continuing showing icon
 function keepCardsOpen() {
   openList[0].className = 'card match show';
   openList[1].className = 'card match show';
+  //correct match animation
+  openList[0].style.animation = 'movecorrect 0.75s ease 0s 1 normal none running';
+  openList[1].style.animation = 'movecorrect 0.75s ease 0s 1 normal none running';
+  //add one to game counter
   wonGameCount++;
+  //invoke function to see if all matches have been made
   didIWin();
+  //remove open cards from list
   openList.splice(0, 2);
+  //allow other cards to be clicked again
+  waiting = false;
 }
 
-//change class of "open" cards to "close" when not matched, remove from openList,
-//and change waiting to false to allow new cards to be clicked
+//function to reverse all open card changes
 function closeCards() {
   let this1 = openList[0];
   let this2 = openList[1];
+  //animate closing of cards
+  this1.style.animation = 'moveclose 0.25s ease 0s 1 normal forwards running';
+  this2.style.animation = 'moveclose 0.25s ease 0s 1 normal forwards running';
+  //change class of "open" cards to default "card" when not matched
   this1.className = 'card';
   this2.className = 'card';
+  //remove from openList
   openList.splice(0, 2);
+  //change waiting to false to allow new cards to be clicked
   waiting = false;
 }
 
@@ -131,14 +153,6 @@ let moves = 0;
 function moveCounter() {
   moves++;
   document.body.querySelector('.moves').textContent = moves;
-  //testing code to be deleted
-  // if (moves === 1) {
-  //   modal.style.display = "block";
-  //   document.body.querySelector('.modal-moves').textContent = moves;
-  //   document.body.querySelector('.modal-time').textContent = gameTimer;
-  //   const currentStars = document.body.querySelector('.stars').innerHTML;
-  //   document.body.querySelector('.modal-stars').innerHTML = currentStars;
-  // }
   if (moves === 13) {
     const stars = document.body.querySelector('.stars').children[0];
     stars.remove();
@@ -226,7 +240,7 @@ function restartGame() {
 
 
 /*
- * - write README file detailing the game and all dependencies
+
  * - (optional) css animations when cards are clicked, unsuccesfully mathced, and successfully matched
  * -change style of site
  * - change icons?
