@@ -34,8 +34,8 @@ h1 {
 }
 
 .deck {
+    height: 660px;
     width: 660px;
-    min-height: 680px;
     background: linear-gradient(90deg, #8e2081, #0323bf);
     padding: 32px;
     border-radius: 10px;
@@ -208,3 +208,14 @@ h1 {
     text-align: center;
     font-size: 36px;
 }
+
+/* @media only screen and (max-width: 450px) {
+    .deck {
+      width: 95%;
+      height: auto;
+    }
+    .score-panel {
+      width: 95%;
+    }
+
+} */
