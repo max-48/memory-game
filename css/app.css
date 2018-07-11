@@ -114,6 +114,7 @@ h1 {
     justify-content: space-between;
     width: 500px;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .score-panel .stars {
@@ -209,13 +210,104 @@ h1 {
     font-size: 36px;
 }
 
-/* @media only screen and (max-width: 450px) {
+/* small phones */
+@media only screen and (max-width: 399px) {
     .deck {
-      width: 95%;
-      height: auto;
+      width: 300px;
+      height: 300px;
+      padding: 16px;
+    }
+    .deck .card {
+      width: 60px;
+      height: 60px;
     }
     .score-panel {
-      width: 95%;
+      width: 300px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .score-panel .stars {
+        text-align: right;
+        width: 40%;
+        margin: 0;
+        padding: 0;
+        margin: 0 5px 0 0;
     }
 
-} */
+    .score-panel .move-chart {
+        text-align: left;
+        width: 50%;
+
+    }
+
+    .score-panel .restart {
+        text-align: center;
+        width: 50%;
+        cursor: pointer;
+    }
+
+    .score-panel .timer-chart {
+        text-align: center;
+        width: 50%;
+
+    }
+
+}
+/* large phones */
+@media only screen and (min-width: 400px) and (max-width: 519px) {
+    .deck {
+      width: 390px;
+      height: 390px;
+      padding: 16px;
+    }
+    .deck .card {
+      width: 80px;
+      height: 80px;
+    }
+    .score-panel {
+      width: 390px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .score-panel .stars {
+        text-align: right;
+        width: 40%;
+        margin: 0;
+        padding: 0;
+        margin: 0 5px 0 0;
+    }
+
+    .score-panel .move-chart {
+        text-align: left;
+        width: 50%;
+
+    }
+
+    .score-panel .restart {
+        text-align: center;
+        width: 50%;
+        cursor: pointer;
+    }
+
+    .score-panel .timer-chart {
+        text-align: center;
+        width: 50%;
+    }
+
+}
+/* larger devices */
+@media only screen and (min-width: 520px) and (max-width: 680px) {
+    .deck {
+      width: 510px;
+      height: 510px;
+      padding: 26px;
+    }
+    .deck .card {
+      width: 100px;
+      height: 100px;
+    }
+    .score-panel {
+      width: 510px;
+      flex-wrap: wrap;
+    }
+}
